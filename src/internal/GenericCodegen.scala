@@ -17,6 +17,7 @@ trait GenericCodegen extends BlockTraversal {
   
   def kernelFileExt = ""
   def emitFileHeader(): Unit = {}
+  def emitKernel(syms: List[Sym[Any]], rhs: Any): Unit = { }
   def emitKernelHeader(syms: List[Sym[Any]], vals: List[Sym[Any]], vars: List[Sym[Any]], resultType: String, resultIsVar: Boolean, external: Boolean): Unit = {}
   def emitKernelFooter(syms: List[Sym[Any]], vals: List[Sym[Any]], vars: List[Sym[Any]], resultType: String, resultIsVar: Boolean, external: Boolean): Unit = {}
   
@@ -52,12 +53,6 @@ trait GenericCodegen extends BlockTraversal {
     }
     
     stream.close()
-  }
-  
-  // exception handler
-  def exceptionHandler(e: Exception, outFile:File, kstream:PrintWriter): Unit = {
-      kstream.close()
-      outFile.delete
   }
   
   // optional type remapping (default is identity)

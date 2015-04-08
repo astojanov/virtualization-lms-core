@@ -75,6 +75,9 @@ trait CCodegen extends CLikeCodegen with CppHostTransfer {
     val outDir = new File(buildDir)
     outDir.mkdirs
 
+    actRecordStream = new PrintWriter(new FileWriter(buildDir + deviceTarget + "actRecords.h"))
+    actRecordStream.println(getDataStructureHeaders())
+
     /* file for helper functions (transfer function, allocation function) */
     helperFuncStream = new PrintWriter(new FileWriter(buildDir + deviceTarget + "helperFuncs.cpp"))
     helperFuncStream.println("#include <jni.h>")
@@ -98,7 +101,7 @@ trait CCodegen extends CLikeCodegen with CppHostTransfer {
     headerStream.println("#include <limits>")
     headerStream.println("#include <algorithm>")
     headerStream.println("#include \"" + deviceTarget + "types.h\"")
-    headerStream.println(getDataStructureHeaders())
+    headerStream.println("#include \"" + deviceTarget + "actRecords.h\"")
 
     super.initializeGenerator(buildDir, args)
   }
@@ -204,6 +207,7 @@ trait CCodegen extends CLikeCodegen with CppHostTransfer {
     helperFuncStream.flush
     headerStream.flush
     typesStream.flush
+    actRecordStream.flush
   }
 
   def kernelName = "kernel_" + kernelOutputs.map(quote).mkString("")

@@ -116,20 +116,14 @@ trait CLikeCodegen extends GenericCodegen {
       out.toString
     }
 
-    //TODO: Remove the dependency to Multiloop to Delite
-    if (!resultType.startsWith("DeliteOpMultiLoop")) {
-      stream.println(kernelSignature + " {")
-      headerStream.println(kernelSignature + ";")
-    }
+    stream.println(kernelSignature + " {")
+    headerStream.println(kernelSignature + ";")
   }
 
   override def emitKernelFooter(syms: List[Sym[Any]], vals: List[Sym[Any]], vars: List[Sym[Any]], resultType: String, resultIsVar: Boolean, external: Boolean): Unit = {
-    //TODO: Remove the dependency to Multiloop to Delite
-    if(resultType != "void" && !resultType.startsWith("DeliteOpMultiLoop"))
-      stream.println("return " + quote(syms(0)) + ";")
-
-    if(!resultType.startsWith("DeliteOpMultiLoop"))
-      stream.println("}")
+    if(resultType != "void")
+      stream.println("return " + syms.map(quote).mkString("") + ";")
+    stream.println("}")
 /*
     for(s <- syms++vals++vars) {
       if(dsTypesList.contains(s.tp)) println("contains :" + remap(s.tp))
