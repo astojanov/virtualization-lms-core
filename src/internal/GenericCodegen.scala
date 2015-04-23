@@ -22,7 +22,7 @@ trait GenericCodegen extends BlockTraversal {
   def emitKernelFooter(syms: List[Sym[Any]], vals: List[Sym[Any]], vars: List[Sym[Any]], resultType: String, resultIsVar: Boolean, external: Boolean): Unit = {}
   
   // Initializer
-  def initializeGenerator(buildDir:String, args: Array[String]): Unit = { }
+  def initializeGenerator(buildDir:String): Unit = { }
   def finalizeGenerator(): Unit = {}
   def kernelInit(syms: List[Sym[Any]], vals: List[Sym[Any]], vars: List[Sym[Any]], resultIsVar: Boolean): Unit = {}
 

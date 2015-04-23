@@ -71,7 +71,7 @@ trait CCodegen extends CLikeCodegen with CppHostTransfer {
     kernelOutputs = syms
   }
 
-  override def initializeGenerator(buildDir:String, args: Array[String]): Unit = {
+  override def initializeGenerator(buildDir:String): Unit = {
     val outDir = new File(buildDir)
     outDir.mkdirs
 
@@ -103,7 +103,7 @@ trait CCodegen extends CLikeCodegen with CppHostTransfer {
     headerStream.println("#include \"" + deviceTarget + "types.h\"")
     headerStream.println("#include \"" + deviceTarget + "actRecords.h\"")
 
-    super.initializeGenerator(buildDir, args)
+    super.initializeGenerator(buildDir)
   }
 
   def emitForwardDef[A:Manifest](args: List[Manifest[_]], functionName: String, out: PrintWriter) = {
